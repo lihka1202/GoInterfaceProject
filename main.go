@@ -5,11 +5,12 @@ import "fmt"
 type englishBot struct{}
 type spanishBot struct{}
 
-func printGreeting(eb englishBot) {
-	fmt.Println(eb.getGreeting())
+type bot interface {
+	getGreeting() string
 }
-func printGreeting(sb spanishBot) {
-	fmt.Println(sb.getGreeting())
+
+func printGreeting(b bot) {
+	fmt.Println(b.getGreeting())
 }
 
 func (englishBot) getGreeting() string {
@@ -17,9 +18,13 @@ func (englishBot) getGreeting() string {
 	return "Hello World!"
 }
 func (spanishBot) getGreeting() string {
-	// EMULATE CUSTOM LOGC
+	// EMULATE CUSTOM LOGIC
 	return "Hola!"
 }
 func main() {
+	eb := englishBot{}
+	sb := spanishBot{}
+	printGreeting(eb)
+	printGreeting(sb)
 
 }
