@@ -2,15 +2,22 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"log"
 	"os"
 )
 
 func main() {
 	fmt.Println("Hello World!")
-	fmt.Println(os.Args[1])
+	readFile(os.Args[1])
 }
 
-// func getFileName() {
-// 	holder := os.Args
+func readFile(name string) {
+	file, err := os.Open(name) // For read access.
+	if err != nil {
+		log.Fatal(err)
+	}
 
-// }
+	io.Copy(os.Stdout, file)
+
+}
