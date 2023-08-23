@@ -7,6 +7,8 @@ import (
 	"os"
 )
 
+type newWriter struct{}
+
 func main() {
 	resp, err := http.Get("http://google.com")
 	if err != nil {
@@ -19,4 +21,10 @@ func main() {
 	// fmt.Println(string(bs))
 
 	io.Copy(os.Stdout, resp.Body)
+}
+
+func (newWriter) Write(bs []byte) (int, error) {
+	fmt.Println(string(bs))
+	fmt.Println("This was a custom writer function that I made!n I wonder what are some of the other functions that could work this way!")
+	return len(bs), nil
 }
